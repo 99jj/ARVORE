@@ -1,0 +1,194 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                   🎮 HAND POSE EDITOR - QUICK REFERENCE CARD                   ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ⚡ 30 SECOND STARTUP                                                         ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+1. Open Terminal/Command Prompt
+2. Type: cd c:\Users\João Pedro\Desktop\ARVORE
+3. Type: python -m http.server 8000
+4. Open Browser: http://localhost:8000
+5. Start Creating Seals! 🎮
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ⌨️  KEYBOARD SHORTCUTS                                                       ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  X          Lock/unlock X-axis movement
+  Y          Lock/unlock Y-axis movement
+  Z          Lock/unlock Z-axis movement
+  Scroll     Rotate selected bone
+  Drag       Move bone on XY plane
+  Click      Select bone
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🎯 5-STEP SEAL CREATION                                                      ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  1. CLICK     Click green sphere (bone)
+  2. DRAG      Move bone to desired position
+  3. SCROLL    Rotate bone as needed
+  4. REPEAT    Adjust other arms/joints
+  5. GENERATE  Enter name → Click "Generate Seal File"
+     
+              → Code automatically copied to clipboard ↓
+              → Create file in AESIR/src/jutsus/seals/
+              → Done! ✅
+
+  Time per seal: 2-5 minutes
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🎮 CONTROL PANEL BUTTONS                                                     ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  Copy Pose JSON        Export current pose as JSON
+  Paste Pose JSON       Import previously saved pose
+  Generate Seal File    Create complete seal class file
+  Reset All             Return to default pose
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 📝 DOCUMENTATION QUICK LINKS                                                 ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  ⭐ START_HERE.md           → START HERE (2 min overview)
+  📖 QUICKSTART.md           → Step-by-step guide (5 min)
+  📚 POSE_EDITOR_GUIDE.md    → Complete documentation (10 min)
+  💻 EXAMPLE_GENERATED_SEALS.md → Code examples
+  🎨 VISUAL_GUIDE.txt        → Diagrams & flowcharts
+  📋 SEAL_TEMPLATE.js        → Copy/paste template
+  📚 INDEX.md                → Complete index
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🔧 TROUBLESHOOTING                                                           ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  Problem              Solution
+  ─────────────────────────────────────────────────────────────
+  Nothing shows        • Check local server is running
+                       • Check browser console (F12)
+                       • Try different browser
+
+  Can't select bones   • Click directly on green sphere
+                       • Should turn yellow when selected
+                       • Check F12 for errors
+
+  Generated code wrong • Verify bone positions before generating
+                       • Use "Copy Pose JSON" to check values
+                       • Try generating again
+
+  Server won't start   • Make sure you're in ARVORE folder
+                       • Try: npx http-server (if Node installed)
+                       • Check port 8000 isn't in use
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 📊 TYPICAL WORKFLOW                                                          ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  Create 12 Seals Workflow:
+
+  Seal 1 (Tiger)        2-5 min  ✓
+  Seal 2 (Dragon)       2-5 min  ✓
+  Seal 3 (Rat)          2-5 min  ✓
+  Seal 4 (Ox)           2-5 min  ✓
+  ... (repeat for all 12)
+  
+  Total time: 30-45 minutes ⚡ (vs 2-3 hours manually)
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 💾 FILE CREATION                                                             ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  When you generate a seal, create this file:
+
+  AESIR/src/jutsus/seals/[SealName]Seal.js
+
+  Example:
+  ────────────────────────────────────────
+  You enter: "Tiger"
+           ↓
+  Generated code is copied to clipboard
+           ↓
+  Create file: AESIR/src/jutsus/seals/TigerSeal.js
+           ↓
+  Paste code
+           ↓
+  Done! Ready to use in AESIR! ✅
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🎯 COMMON TASKS                                                              ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  I want to...                  Do this...
+  ─────────────────────────────────────────────────────────────
+  Create first seal            Read QUICKSTART.md (5 min)
+  Move bone left/right         Press X, then drag
+  Move bone up/down            Press Y, then drag
+  Move bone forward/back       Press Z, then drag
+  Rotate bone                  Scroll wheel
+  Fine-tune values             Use sliders
+  Save my work                 "Copy Pose JSON" button
+  Create seal file             "Generate Seal File" button
+  Start over                   "Reset All" button
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🚀 WHAT'S INCLUDED                                                           ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  ✅ Interactive pose editor UI
+  ✅ Click and drag controls
+  ✅ Scroll-to-rotate
+  ✅ Keyboard shortcuts
+  ✅ Slider controls
+  ✅ Real-time feedback
+  ✅ Auto-code generation
+  ✅ Copy to clipboard
+  ✅ Comprehensive docs
+  ✅ Visual guides
+  ✅ Code examples
+  ✅ Quick reference
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 📱 DEVICE SUPPORT                                                            ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  Desktop:
+  ✅ Windows (Chrome, Firefox, Edge, Safari)
+  ✅ macOS (Chrome, Firefox, Safari)
+  ✅ Linux (Chrome, Firefox)
+
+  Mobile:
+  ⚠️  Works but not optimized for touch
+  (Designed for desktop/tablet with mouse)
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ✨ BONUS TIPS                                                                ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  Pro Tips:
+  ────────
+  • Use keyboard axis locks (X/Y/Z) for precise movement
+  • Save poses between attempts with "Copy Pose JSON"
+  • Look at TigerSeal.js for reference values
+  • Create similar seals back-to-back
+  • Test each seal in AESIR after creating
+  • Take screenshots of seals you like
+  • Document rotation values for reference
+
+  Workflow Tips:
+  ─────────────
+  • Start with simple poses
+  • Work one arm at a time
+  • Mirror your values for opposite sides
+  • Use sliders for small fine-tuning
+  • Generate seals in batches
+
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                ║
+║                   Ready? Start with: START_HERE.md 📖                          ║
+║                   Then open: http://localhost:8000 🚀                          ║
+║                                                                                ║
+║                        Create amazing hand seals! 🐯🐲🐀                       ║
+║                                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝

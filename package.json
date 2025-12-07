@@ -1,0 +1,15 @@
+{
+  "name": "arvore",
+  "version": "1.0.0",
+  "description": "🌳 Projeto ARVORE - Mundo 3D educacional para o Kael",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "live-server . --port=3000 --open=/index.html"
+  },
+  "keywords": ["three.js", "3d", "educacional"],
+  "author": "Kael e Papai",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
