@@ -2,6 +2,16 @@
 import * as THREE from 'three';
 import { generateSealTemplate } from './sealGenerator.js';
 
+// Hair Imports
+import { createAfroHair } from './avatar/hair/afroHair.js';
+import { createBobHair } from './avatar/hair/bobHair.js';
+import { createCurlyHair } from './avatar/hair/curlyHair.js';
+import { createLongHair } from './avatar/hair/longHair.js';
+import { createMediumHair } from './avatar/hair/mediumHair.js';
+import { createMohawkHair } from './avatar/hair/mohawkHair.js';
+import { createPonytailHair } from './avatar/hair/ponytailHair.js';
+import { createSpikyHair } from './avatar/hair/spikyHair.js';
+
 export class PoseEditor {
   constructor(scene, bones) {
     this.scene = scene;
@@ -17,8 +27,25 @@ export class PoseEditor {
     this.allHelpers = [];
     this.helpersVisible = true; // ✅ Toggle com tecla G
 
+    // Hair System
+    this.currentHairIndex = -1; // -1 = Bald
+    this.hairStyles = [
+      { name: 'Bald', func: null },
+      { name: 'Afro', func: createAfroHair },
+      { name: 'Bob', func: createBobHair },
+      { name: 'Curly', func: createCurlyHair },
+      { name: 'Long', func: createLongHair },
+      { name: 'Medium', func: createMediumHair },
+      { name: 'Mohawk', func: createMohawkHair },
+      { name: 'Ponytail', func: createPonytailHair },
+      { name: 'Spiky', func: createSpikyHair },
+    ];
+
     this.init();
     this.defaultPose = null;
+
+    // Set initial hair (optional)
+    setTimeout(() => this.setHair(5), 1000); // Default to Medium (index 5)
   }
 
   init() {
@@ -160,6 +187,17 @@ export class PoseEditor {
       </div>
       
       <div id="info-content">
+      
+         <!-- HAIR SELECTOR -->
+         <div style="margin-bottom: 10px; background: rgba(0, 100, 200, 0.2); padding: 8px;">
+            <strong>Hair Style:</strong>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 5px;">
+                <button id="prev-hair" style="width: 30px; font-weight: bold;">&lt;</button>
+                <div id="hair-name" style="color: #fff; font-weight: bold;">Bald</div>
+                <button id="next-hair" style="width: 30px; font-weight: bold;">&gt;</button>
+            </div>
+         </div>
+
         <div style="margin-bottom: 10px; background: rgba(0, 255, 0, 0.1); padding: 8px;">
           <strong>Controls:</strong><br/>
           • Click bone (green ball) to select<br/>
@@ -201,9 +239,9 @@ export class PoseEditor {
         </div>
 
         <div style="background: rgba(100, 100, 0, 0.3); padding: 8px; margin-bottom: 10px;">
-          <strong>Seal Name:</strong>
-          <input id="seal-name" type="text" placeholder="e.g., Tiger, Dragon" 
-            style="width: 100%; padding: 4px; margin-top: 5px;">
+            <strong>Seal Name:</strong>
+            <input id="seal-name" type="text" placeholder="e.g., Tiger, Dragon" 
+              style="width: 100%; padding: 4px; margin-top: 5px;">
         </div>
 
         <div style="background: rgba(0, 100, 0, 0.3); padding: 8px; max-height: 200px; overflow-y: auto;">
@@ -228,6 +266,19 @@ export class PoseEditor {
       infoContent.style.display = isHidden ? 'block' : 'none';
       toggleBtn.textContent = isHidden ? '-' : '+';
     });
+
+    // HAIR CONTROLS
+    document.getElementById('prev-hair').onclick = () => {
+      this.currentHairIndex--;
+      if (this.currentHairIndex < 0) this.currentHairIndex = this.hairStyles.length - 1;
+      this.setHair(this.currentHairIndex);
+    };
+    document.getElementById('next-hair').onclick = () => {
+      this.currentHairIndex++;
+      if (this.currentHairIndex >= this.hairStyles.length) this.currentHairIndex = 0;
+      this.setHair(this.currentHairIndex);
+    };
+
 
     document.getElementById('copy-pose').onclick = () => {
       console.log('Copy Pose clicked');
@@ -274,6 +325,34 @@ export class PoseEditor {
         }
       };
     });
+  }
+
+  // Set Hair Function
+  setHair(index) {
+    this.currentHairIndex = index;
+    const headBone = this.bones.head;
+    if (!headBone) return;
+
+    // Remove existing hair
+    for (let i = headBone.children.length - 1; i >= 0; i--) {
+      const child = headBone.children[i];
+      if (child.userData.isHair) {
+        headBone.remove(child);
+        if (child.geometry) child.geometry.dispose();
+        if (child.material) child.material.dispose();
+      }
+    }
+
+    const style = this.hairStyles[index];
+    document.getElementById('hair-name').textContent = style.name;
+
+    if (style.func) {
+      const hairGroup = style.func();
+      hairGroup.userData.isHair = true;
+      // Position adjustment manually if needed, but hairs usually include their own offset
+      headBone.add(hairGroup);
+    }
+    console.log(`Switched hair to: ${style.name}`);
   }
 
   populateBonesList() {
@@ -552,6 +631,21 @@ export class PoseEditor {
         forearm: serialize(this.bones.rightForearm.rotation),
         wrist: serialize(this.bones.rightWrist.rotation)
       },
+      body: {
+        root: serialize(this.bones.root.rotation),
+        pelvis: serialize(this.bones.pelvis.rotation),
+        spine: serialize(this.bones.spine.rotation),
+        neck: serialize(this.bones.neck.rotation),
+        head: serialize(this.bones.head.rotation)
+      },
+      legs: {
+        leftLeg: serialize(this.bones.leftLeg.rotation),
+        leftKnee: serialize(this.bones.leftKnee.rotation),
+        leftAnkle: serialize(this.bones.leftAnkle.rotation),
+        rightLeg: serialize(this.bones.rightLeg.rotation),
+        rightKnee: serialize(this.bones.rightKnee.rotation),
+        rightAnkle: serialize(this.bones.rightAnkle.rotation)
+      },
       leftFingers: {}, rightFingers: {}
     };
 
@@ -610,6 +704,25 @@ export class PoseEditor {
     applyRotation(this.bones.rightElbow, pose.rightArm?.elbow);
     applyRotation(this.bones.rightForearm, pose.rightArm?.forearm);
     applyRotation(this.bones.rightWrist, pose.rightArm?.wrist);
+
+    // Aplica Corpo
+    if (pose.body) {
+      applyRotation(this.bones.root, pose.body.root);
+      applyRotation(this.bones.pelvis, pose.body.pelvis);
+      applyRotation(this.bones.spine, pose.body.spine);
+      applyRotation(this.bones.neck, pose.body.neck);
+      applyRotation(this.bones.head, pose.body.head);
+    }
+
+    // Aplica Pernas
+    if (pose.legs) {
+      applyRotation(this.bones.leftLeg, pose.legs.leftLeg);
+      applyRotation(this.bones.leftKnee, pose.legs.leftKnee);
+      applyRotation(this.bones.leftAnkle, pose.legs.leftAnkle);
+      applyRotation(this.bones.rightLeg, pose.legs.rightLeg);
+      applyRotation(this.bones.rightKnee, pose.legs.rightKnee);
+      applyRotation(this.bones.rightAnkle, pose.legs.rightAnkle);
+    }
 
     // Aplica dedos
     ['left', 'right'].forEach(side => {
