@@ -12,6 +12,13 @@ import { createMohawkHair } from './avatar/hair/mohawkHair.js';
 import { createPonytailHair } from './avatar/hair/ponytailHair.js';
 import { createSpikyHair } from './avatar/hair/spikyHair.js';
 
+// New Styles
+import { createSideSweptHair } from './avatar/hair/sideSweptHair.js';
+import { createSlickedBackHair } from './avatar/hair/slickedBackHair.js';
+import { createAsymmetricHair } from './avatar/hair/asymmetricHair.js';
+import { createRagnarokSpikyHair } from './avatar/hair/ragnarokSpikyHair.js';
+import { createTwinTailsHair } from './avatar/hair/twinTailsHair.js';
+
 export class PoseEditor {
   constructor(scene, bones) {
     this.scene = scene;
@@ -39,6 +46,12 @@ export class PoseEditor {
       { name: 'Mohawk', func: createMohawkHair },
       { name: 'Ponytail', func: createPonytailHair },
       { name: 'Spiky', func: createSpikyHair },
+      // New additions
+      { name: 'Side Swept', func: createSideSweptHair },
+      { name: 'Slicked Back', func: createSlickedBackHair },
+      { name: 'Asymmetric', func: createAsymmetricHair },
+      { name: 'RO Spiky', func: createRagnarokSpikyHair },
+      { name: 'Twin Tails', func: createTwinTailsHair },
     ];
 
     this.init();
