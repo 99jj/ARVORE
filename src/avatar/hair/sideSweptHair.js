@@ -25,11 +25,7 @@ export function createSideSweptHair(color = 0x3d2817) {
   // 3. Lado Longo (Esquerda)
   const longSideGeo = new THREE.BoxGeometry(0.25, 1.2, 0.3);
   const sideL = new THREE.Mesh(longSideGeo, hairMaterial);
-<<<<<<< HEAD
-  sideL.position.set(-0.4, -0.2, 0.1); 
-=======
   sideL.position.set(-0.4, -0.2, 0.1);
->>>>>>> 3833eea3f71772501a5a2d428c85a8510a1cf45f
   sideL.rotation.z = 0.1;
   hairGroup.add(sideL);
 

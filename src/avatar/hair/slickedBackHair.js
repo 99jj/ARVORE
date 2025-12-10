@@ -8,19 +8,11 @@ export function createSlickedBackHair(color = 0x3d2817) {
   // 1. Topo principal (achatado nas laterais, alto no meio)
   const topGeo = new THREE.CylinderGeometry(0.38, 0.42, 0.7, 32, 1, false, 0, Math.PI);
   const top = new THREE.Mesh(topGeo, hairMaterial);
-<<<<<<< HEAD
-  top.position.set(0, 0.35, -0.1); 
+  top.position.set(0, 0.35, -0.1);
   top.rotation.z = Math.PI / 2; // Deitado ao longo do eixo X (errado, queremos ao longo do Z)
   // Correção: Cylinder padrão é vertical (Y). 
   // Vamos usar Sphere deformada.
-  
-=======
-  top.position.set(0, 0.35, -0.1);
-  top.rotation.z = Math.PI / 2; // Deitado ao longo do eixo X (errado, queremos ao longo do Z)
-  // Correção: Cylinder padrão é vertical (Y).
-  // Vamos usar Sphere deformada.
 
->>>>>>> 3833eea3f71772501a5a2d428c85a8510a1cf45f
   const mainDome = new THREE.Mesh(
     new THREE.SphereGeometry(0.42, 32, 32, 0, Math.PI * 2, 0, Math.PI * 0.5),
     hairMaterial
@@ -39,11 +31,6 @@ export function createSlickedBackHair(color = 0x3d2817) {
 
   // 3. Laterais raspadas/curtas (Tight sides)
   const sideGeo = new THREE.BoxGeometry(0.1, 0.5, 0.6);
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 3833eea3f71772501a5a2d428c85a8510a1cf45f
   const sideL = new THREE.Mesh(sideGeo, hairMaterial);
   sideL.position.set(-0.38, 0.3, -0.1);
   hairGroup.add(sideL);

@@ -23,11 +23,6 @@ export function createTwinTailsHair(color = 0x3d2817) {
 
   // 2. Chiquinha Esquerda
   const tailGeo = new THREE.ConeGeometry(0.2, 1.2, 16);
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 3833eea3f71772501a5a2d428c85a8510a1cf45f
   const tailL = new THREE.Mesh(tailGeo, hairMaterial);
   tailL.position.set(-0.6, 0.2, -0.1); // Ao lado da cabeça
   tailL.rotation.z = 0.4; // Aberto pra fora
