@@ -8,7 +8,7 @@ export function createRagnarokSpikyHair(color = 0x3d2817) {
 
   // 1. Base principal
   const base = new THREE.Mesh(
-    new THREE.SphereGeometry(0.4, 32, 32, 0, Math.PI*2, 0, Math.PI*0.5),
+    new THREE.SphereGeometry(0.4, 32, 32, 0, Math.PI * 2, 0, Math.PI * 0.5),
     hairMaterial
   );
   base.position.set(0, 0.3, 0);
@@ -23,7 +23,7 @@ export function createRagnarokSpikyHair(color = 0x3d2817) {
 
   // 3. Espetos Grandes (Anime style)
   const spikeGeo = new THREE.ConeGeometry(0.12, 0.6, 8);
-  
+
   // Central
   const s1 = new THREE.Mesh(spikeGeo, hairMaterial);
   s1.position.set(0, 0.8, -0.1);

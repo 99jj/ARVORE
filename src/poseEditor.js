@@ -11,11 +11,12 @@ import { createMediumHair } from './avatar/hair/mediumHair.js';
 import { createMohawkHair } from './avatar/hair/mohawkHair.js';
 import { createPonytailHair } from './avatar/hair/ponytailHair.js';
 import { createSpikyHair } from './avatar/hair/spikyHair.js';
-// New Hairs
-import { createAsymmetricHair } from './avatar/hair/asymmetricHair.js';
-import { createRagnarokSpikyHair } from './avatar/hair/ragnarokSpikyHair.js';
+
+// New Styles
 import { createSideSweptHair } from './avatar/hair/sideSweptHair.js';
 import { createSlickedBackHair } from './avatar/hair/slickedBackHair.js';
+import { createAsymmetricHair } from './avatar/hair/asymmetricHair.js';
+import { createRagnarokSpikyHair } from './avatar/hair/ragnarokSpikyHair.js';
 import { createTwinTailsHair } from './avatar/hair/twinTailsHair.js';
 
 export class PoseEditor {
@@ -45,11 +46,11 @@ export class PoseEditor {
       { name: 'Mohawk', func: createMohawkHair },
       { name: 'Ponytail', func: createPonytailHair },
       { name: 'Spiky', func: createSpikyHair },
-      // New Hairs
-      { name: 'Asymmetric', func: createAsymmetricHair },
-      { name: 'Ragnarok', func: createRagnarokSpikyHair },
+      // New additions
       { name: 'Side Swept', func: createSideSweptHair },
       { name: 'Slicked Back', func: createSlickedBackHair },
+      { name: 'Asymmetric', func: createAsymmetricHair },
+      { name: 'RO Spiky', func: createRagnarokSpikyHair },
       { name: 'Twin Tails', func: createTwinTailsHair },
     ];
 
