@@ -82,6 +82,8 @@ export class InputHandler {
    * @param {string} name - Bone name
    */
   selectBone(bone, name) {
+    if (this.selectedBone === bone) return;
+
     // Deselect previous
     if (this.selectedBone?.userData?.visualHelper) {
       this.selectedBone.userData.visualHelper.material.color.setHex(0x00ff00);

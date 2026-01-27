@@ -1,64 +1,100 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🎮 Hand Pose Editor - AESIR</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      
-      body { 
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        background: #000;
-        font-family: monospace;
-      }
-      
-      canvas { 
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
 
-      #pose-editor-panel {
-        scrollbar-color: #0f0 transparent;
-        scrollbar-width: thin;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎮 Hand Pose Editor - AESIR</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      #pose-editor-panel::-webkit-scrollbar {
-        width: 8px;
-      }
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+      font-family: monospace;
+    }
 
-      #pose-editor-panel::-webkit-scrollbar-track {
-        background: transparent;
-      }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
 
-      #pose-editor-panel::-webkit-scrollbar-thumb {
-        background: #0f0;
-        border-radius: 4px;
-      }
+    #pose-editor-panel {
+      scrollbar-color: #0f0 transparent;
+      scrollbar-width: thin;
+    }
 
-      button {
-        transition: all 0.1s;
-      }
+    #pose-editor-panel::-webkit-scrollbar {
+      width: 8px;
+    }
 
-      button:hover {
-        opacity: 0.8;
-      }
+    #pose-editor-panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
-      button:active {
-        transform: scale(0.98);
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Importmap para carregar Three.js do CDN -->
-    <script type="importmap">
+    #pose-editor-panel::-webkit-scrollbar-thumb {
+      background: #0f0;
+      border-radius: 4px;
+    }
+
+    button {
+      transition: all 0.1s;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    #sidebar {
+      position: absolute;
+      left: 10px;
+      top: 80px;
+      /* Below top toolbar */
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .tool-btn {
+      width: 40px;
+      height: 40px;
+      background: #333;
+      border: 1px solid #555;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      font-size: 20px;
+    }
+
+    .tool-btn:hover {
+      background: #444;
+    }
+
+    .tool-btn.active {
+      background: #007bff;
+      border-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Importmap para carregar Three.js do CDN -->
+  <script type="importmap">
       {
         "imports": {
           "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
@@ -67,7 +103,67 @@
       }
     </script>
 
-    <!-- Seu script principal -->
-    <script type="module" src="/src/main.js"></script>
-  </body>
+  <!-- Toolbar -->
+  <div id="toolbar" style="position: absolute; top: 10px; left: 10px; z-index: 100; display: flex; gap: 10px;">
+    <button onclick="window.app.loadAvatar()"
+      style="padding: 10px; background: #222; color: #fff; border: 1px solid #444; cursor: pointer;">Load
+      Avatar</button>
+    <button onclick="window.app.unloadAvatar()"
+      style="padding: 10px; background: #922; color: #fff; border: 1px solid #444; cursor: pointer;">Unload
+      Avatar</button>
+    <button onclick="window.app.addPrimitive('cube')"
+      style="padding: 10px; background: #222; color: #fff; border: 1px solid #444; cursor: pointer;">Add Cube</button>
+    <button onclick="window.app.addPrimitive('sphere')"
+      style="padding: 10px; background: #222; color: #fff; border: 1px solid #444; cursor: pointer;">Add Sphere</button>
+    <button onclick="window.app.addPrimitive('cylinder')"
+      style="padding: 10px; background: #222; color: #fff; border: 1px solid #444; cursor: pointer;">Add
+      Cylinder</button>
+    <div style="width: 20px; display: inline-block;"></div>
+    <div style="display: inline-block; vertical-align: top;">
+      <button id="btn-edit-mode" onclick="window.app.toggleEditMode()"
+        style="padding: 10px; background: #444; color: #fff; border: 1px solid #444; cursor: pointer;">Edit Mode:
+        OFF</button>
+
+      <!-- Collapsible Selection Menu -->
+      <div id="edit-mode-menu"
+        style="display: none; background: #333; border: 1px solid #555; padding: 5px; position: absolute; margin-top: 5px; z-index: 1000; border-radius: 4px;">
+        <div style="margin-bottom: 5px; color: #ddd; font-size: 12px; font-weight: bold;">Selection Mode:</div>
+        <label style="display: block; cursor: pointer; color: #fff; margin-bottom: 3px;">
+          <input type="radio" name="selectionMode" value="vertex" checked
+            onchange="window.app.setSelectionMode('vertex')"> Vertices
+        </label>
+        <label style="display: block; cursor: pointer; color: #fff; margin-bottom: 3px;">
+          <input type="radio" name="selectionMode" value="edge" onchange="window.app.setSelectionMode('edge')"> Edges
+        </label>
+        <label style="display: block; cursor: pointer; color: #fff; margin-bottom: 3px;">
+          <input type="radio" name="selectionMode" value="face" onchange="window.app.setSelectionMode('face')"> Faces
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar Tools -->
+  <div id="sidebar">
+    <button id="btn-move" class="tool-btn active" onclick="setActiveTool('translate')" title="Move">M</button>
+    <button id="btn-rotate" class="tool-btn" onclick="setActiveTool('rotate')" title="Rotate">R</button>
+    <button id="btn-scale" class="tool-btn" onclick="setActiveTool('scale')" title="Scale">S</button>
+  </div>
+
+  <script>
+    function setActiveTool(mode) {
+      if (window.app && window.app.setTransformMode) {
+        window.app.setTransformMode(mode);
+      }
+      // Update UI
+      document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+      if (mode === 'translate') document.getElementById('btn-move').classList.add('active');
+      if (mode === 'rotate') document.getElementById('btn-rotate').classList.add('active');
+      if (mode === 'scale') document.getElementById('btn-scale').classList.add('active');
+    }
+  </script>
+
+  <!-- Seu script principal -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>

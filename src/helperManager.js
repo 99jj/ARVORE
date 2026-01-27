@@ -155,4 +155,17 @@ export class HelperManager {
   isVisible() {
     return this.helpersVisible;
   }
+
+  /**
+   * Remove all helpers and clean up
+   */
+  dispose() {
+    this.allHelpers.forEach(helper => {
+      this.scene.remove(helper);
+      if (helper.geometry) helper.geometry.dispose();
+      if (helper.material) helper.material.dispose();
+    });
+    this.allHelpers = [];
+    console.log("🧹 HelperManager disposed");
+  }
 }
